@@ -34,5 +34,5 @@ module.exports = {
         open: true,  // open browser on script run
         hot: IS_DEV
     },
-    devtool: setupDevtool
+    devtool: setupDevtool()
 }
