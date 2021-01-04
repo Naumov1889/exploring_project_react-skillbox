@@ -16,10 +16,28 @@ module.exports = {
     },
     externals: [nodeExternals()],  // don't include node_modules into final server bundle
     module: {
-        rules: [{
-            test: /\.[jt]sx?$/,
-            use: ['ts-loader']
-        }]
+        rules: [
+            {
+                test: /\.[jt]sx?$/,
+                use: ['ts-loader']
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                mode: 'local',  // activate css modules
+                                localIdentName: '[name]__[local]--[hash:base64:5]',  // name of selector
+                                exportOnlyLocals: true,
+                            },
+                        }
+                    },
+                    'less-loader'
+                ]
+            }
+        ]
     },
     optimization: {
         minimize: false
