@@ -2,6 +2,7 @@ const path = require('path');  // for relative paths
 const nodeExternals = require('webpack-node-externals');
 
 const NODE_ENV = process.env.NODE_ENV;
+const GLOBAL_CSS_REGEXP = /\.global\.css$/;
 
 module.exports = {
     resolve: {
@@ -35,7 +36,12 @@ module.exports = {
                         }
                     },
                     'less-loader'
-                ]
+                ],
+                exclude: GLOBAL_CSS_REGEXP,
+            },
+            {
+                test: GLOBAL_CSS_REGEXP,
+                user: ['css-loader']
             }
         ]
     },
