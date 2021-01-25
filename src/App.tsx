@@ -1,9 +1,18 @@
 import React from 'react';
 import {hot} from 'react-hot-loader/root';
+import './main.global.css'
+import {Layout} from './shared/Layout';
+import {Header} from "./shared/Header";
+import {Content} from "./shared/Content";
 
 function AppComponent() {
     return (
-        <div>content</div>
+        <Layout>
+            <Header/>
+            <Content>
+                Content
+            </Content>
+        </Layout>
     );
 }
 

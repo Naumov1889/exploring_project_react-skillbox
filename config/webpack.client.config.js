@@ -38,7 +38,7 @@ module.exports = {
                 use: ['ts-loader']
             },
             {
-                test: /\.less$/,
+                test: /\.css$/,
                 use: [
                     'style-loader', {
                         loader: 'css-loader',
@@ -49,7 +49,7 @@ module.exports = {
                             }
                         }
                     },
-                    'less-loader',
+                    // 'less-loader',
                 ],
                 exclude: GLOBAL_CSS_REGEXP,
             },
