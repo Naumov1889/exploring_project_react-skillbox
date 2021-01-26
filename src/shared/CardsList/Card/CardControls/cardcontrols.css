@@ -1,0 +1,6 @@
+.cardControls {
+    display: flex;
+}
+.cardControls div {
+    margin-right: 50px;
+}
