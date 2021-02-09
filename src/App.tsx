@@ -5,6 +5,7 @@ import {Layout} from './shared/Layout';
 import {Header} from "./shared/Header";
 import {Content} from "./shared/Content";
 import {CardsList} from "./shared/CardsList";
+import {Dropdown} from "./shared/Dropdown";
 
 function AppComponent() {
     return (
@@ -13,8 +14,15 @@ function AppComponent() {
             <Content>
                 <CardsList/>
             </Content>
+            <Dropdown onOpen={() => console.log('opened')}
+                      onClose={() => console.log('closed')}
+                      button={<button>Test</button>}>
+                <ul>
+                    <li>1</li>
+                </ul>
+            </Dropdown>
         </Layout>
     );
 }
 
-export const App = hot(AppComponent);
+export const App = hot(() => <AppComponent />);
