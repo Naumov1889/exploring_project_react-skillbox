@@ -1,0 +1,9 @@
+.item {
+    margin: 0;
+    padding: 5px;
+    background: white;
+}
+
+.item_close {
+    background: lightgray;
+}
