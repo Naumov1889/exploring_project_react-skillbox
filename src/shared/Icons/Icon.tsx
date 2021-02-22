@@ -5,6 +5,7 @@ import {ShareIcon} from './ShareIcon';
 import {HideIcon} from './HideIcon';
 import {SaveIcon} from './SaveIcon';
 import {ComplainIcon} from './ComplainIcon';
+import {AnonIcon} from './AnonIcon';
 
 const Icons: { [key in keyof typeof EIcons]: any } = {
     menu: MenuIcon,
@@ -13,6 +14,7 @@ const Icons: { [key in keyof typeof EIcons]: any } = {
     hide: HideIcon,
     save: SaveIcon,
     complain: ComplainIcon,
+    anon: AnonIcon,
 }
 
 interface IIconProps {
@@ -27,6 +29,7 @@ export enum EIcons {
     hide = 'hide',
     save = 'save',
     complain = 'complain',
+    anon = 'anon',
 }
 
 export function Icon({size, name}: IIconProps) {

@@ -1,13 +1,18 @@
 // for HMR: npm i -D webpack-dev-middleware webpack-hot-middleware react-hot-loader @hot-loader/react-dom clean-webpack-plugin
 
 const path = require('path');  // for relative paths
-const {HotModuleReplacementPlugin} = require('webpack');  // for HMR
+const {HotModuleReplacementPlugin, DefinePlugin} = require('webpack');  // for HMR
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');  // for HMR
 
 const NODE_ENV = process.env.NODE_ENV;
 const IS_DEV = NODE_ENV === 'development';
 const IS_PROD = NODE_ENV === 'production';
 const GLOBAL_CSS_REGEXP = /\.global\.css$/;
+const DEV_PLUGINS = [
+    new HotModuleReplacementPlugin(), // for HMR
+    new CleanWebpackPlugin()  // for HMR (delete old compiles after changes)
+]
+const COMMON_PLUGINS = [new DefinePlugin({'process.env.CLIENT_ID': `'${process.env.CLIENT_ID}'`})]
 
 function setupDevtool() {
     if (IS_DEV) return 'eval';
@@ -60,9 +65,5 @@ module.exports = {
         ]
     },
     devtool: setupDevtool(),
-    plugins: IS_DEV
-        ? [
-            new CleanWebpackPlugin(),  // for HMR (delete old compiles after changes)
-            new HotModuleReplacementPlugin(),  // for HMR
-        ] : [],
+    plugins: IS_DEV ? DEV_PLUGINS.concat(COMMON_PLUGINS) : COMMON_PLUGINS
 }
