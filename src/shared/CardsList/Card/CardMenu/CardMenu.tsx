@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './cardmenu.css';
 import {Dropdown} from "../../../Dropdown";
 import {CardMenuList} from "./CardMenuList";
+import {Icon, EIcons} from '../../../Icons';
+
 
 
 export function CardMenu() {
@@ -11,10 +13,10 @@ export function CardMenu() {
                       onClose={() => console.log('closed')}
                       button={
                           <button className={styles.menuBtn}>
-                              MENU
+                              <Icon name={EIcons.menu} size={21}/>
                           </button>
                       }>
-                <CardMenuList/>
+                <CardMenuList postId="1234"/>
             </Dropdown>
         </div>
     );

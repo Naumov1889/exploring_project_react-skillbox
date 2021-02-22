@@ -1,23 +1,35 @@
 import React from 'react';
 import styles from './cardmenulist.css';
-import {GenericList} from "../../../../GenericList";
-import {generateRandomString, merge} from "../../../../../utils";
+import {EIcons, Icon} from "../../../../Icons";
 
-/* TODO: how to make className work with CSS modules */
-const CardMenuListItems = [
-    {As: 'li' as const, text: 'Alert "HI"', className: 'item', onClick: () => alert('HI')},
-    {As: 'li' as const, text: 'Close', className: 'item item_close'},
-].map((item) => ({...item, id: generateRandomString()}));
+interface IMenuItemsListProps {
+    postId: string;
+}
 
-export function CardMenuList() {
-    const handleItemClick = (id: string) => {
-        console.log('clicked item', id);
-    }
+export function CardMenuList({postId}: IMenuItemsListProps) {
 
     return (
         <ul className={styles.CardMenuList}>
-            <GenericList list={CardMenuListItems.map(merge({onClick: handleItemClick}))}/>
-            {/*<GenericList list={CardMenuListItems.map((obj) => merge(obj)({onClick: pipe(handleItemClick, obj.onClick)}))}/>*/}
+            <li onClick={() => console.log(postId)} className={styles.menuItem}>
+                <Icon name={EIcons.comment} size={14}/>
+                Комментарии
+            </li>
+            <li className={styles.menuItem}>
+                <Icon name={EIcons.share} size={14}/>
+                Поделиться
+            </li>
+            <li className={styles.menuItem}>
+                <Icon name={EIcons.hide} size={14}/>
+                Скрыть
+            </li>
+            <li className={styles.menuItem}>
+                <Icon name={EIcons.save} size={14}/>
+                Сохранить
+            </li>
+            <li className={styles.menuItem}>
+                <Icon name={EIcons.complain} size={14}/>
+                Пожаловаться
+            </li>
         </ul>
     );
 }

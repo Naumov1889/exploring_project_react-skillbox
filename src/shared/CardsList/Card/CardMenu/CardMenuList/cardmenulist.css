@@ -1,9 +1,51 @@
 .CardMenuList {
+    position: relative;
+    top: 19px;
+    left: 50%;
+    transform: translateX(-50%);
     margin: 0;
-    padding: 0;
-    width: 100px;
+    padding: 5px 0;
+    width: 157px;
     list-style: none;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
 }
-.item {
-    font-style: italic;
+
+.menuItem {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 20px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #999999;
+    cursor: pointer;
+}
+
+.menuItem:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: #ECECEC;
+}
+
+.menuItem:last-child:before {
+    display: none;
+}
+
+.menuItem:hover {
+    color: #CC6633;
+}
+
+.menuItem:hover svg path {
+    fill: #CC6633;
+}
+
+.menuItem svg {
+    margin-right: 7px;
 }
