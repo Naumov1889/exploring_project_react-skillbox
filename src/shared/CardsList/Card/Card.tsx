@@ -5,13 +5,25 @@ import {CardPreview} from "./CardPreview";
 import {CardMenu} from "./CardMenu";
 import {CardControls} from "./CardControls";
 
-export function Card() {
-  return (
-    <li className={styles.card}>
-      <CardTextContent/>
-      <CardPreview/>
-      <CardMenu/>
-      <CardControls/>
-    </li>
-  );
+interface ICardProps {
+    post: {
+        id: string;
+        title: string;
+        img: string;
+    }
+    author: {
+        title: string;
+        img: string;
+    };
+}
+
+export function Card({post, author}: ICardProps) {
+    return (
+        <li className={styles.card}>
+            <CardTextContent title={post.title} author={author}/>
+            <CardPreview img={post.img}/>
+            {/*<CardMenu/>*/}
+            {/*<CardControls/>*/}
+        </li>
+    );
 }
