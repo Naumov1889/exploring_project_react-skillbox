@@ -14,6 +14,7 @@ export const indexTemplate = (content, token) => `
     window.__token__ = "${token}"
     </script>
     <div id="react_root">${content}</div>
+    <div id="modal_root"></div>
 </body>
 </html>
 `

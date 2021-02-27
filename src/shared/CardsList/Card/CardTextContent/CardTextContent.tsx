@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './cardtextcontent.css';
 import {CardAuthor} from "./CardAuthor";
+import {Post} from "../../../Post";
 
 interface ICardTextContentProps {
     title: string;
@@ -11,6 +12,8 @@ interface ICardTextContentProps {
 }
 
 export function CardTextContent({title, author}: ICardTextContentProps) {
+    const [isModalOpened, setIsModalOpened] = useState(false);
+
     return (
         <div className={styles.textContent}>
             <div className={styles.metaData}>
@@ -18,10 +21,16 @@ export function CardTextContent({title, author}: ICardTextContentProps) {
                 {/*<span className={styles.createdAt}>4 часа назад</span>*/}
             </div>
             <div className={styles.title}>
-                <a href="#post-url" className={styles.postLink}>
+                <a href="#post-url"
+                   className={styles.postLink}
+                   onClick={() => setIsModalOpened(!isModalOpened)}>
                     {title}
                 </a>
             </div>
+
+            {isModalOpened && (
+                <Post onClose={() => setIsModalOpened(!isModalOpened)}/>
+            )}
         </div>
     );
 }
