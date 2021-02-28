@@ -1,19 +1,27 @@
 import React, {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
-import styles from './post.css';
-import {CommentForm} from "../CommentForm";
+import styles from './dropdowncontent.css';
 
-interface IPost {
+interface IDropdownContentProps {
+    children: React.ReactNode;
+    setIsDropdownOpen: (isOpen: boolean) => void;
     onClose?: () => void;
+    position?: {
+        top: string;
+        left: string;
+    }
 }
 
-export function Post(props: IPost) {
+const NOOP = () => {
+};
+
+export function DropdownContent({children, setIsDropdownOpen, onClose = NOOP, position}: IDropdownContentProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         function handleClick(event: MouseEvent) {
             if (event.target instanceof Node && !ref.current?.contains(event.target)) {
-                props.onClose?.();
+                onClose?.();
             }
         }
 
@@ -28,14 +36,11 @@ export function Post(props: IPost) {
     if (!modalRootNode) return null;
 
     return ReactDOM.createPortal((
-        <div className={styles.modal} ref={ref}>
-            <div className={styles.content}>
-                <div className={styles.text}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab atque cupiditate delectus deserunt
-                    dignissimos eligendi eum facilis illum, inventore ipsa ipsam itaque modi mollitia necessitatibus
-                    perferendis placeat tenetur unde.
-                </div>
-                <CommentForm/>
+        <div style={{top: position?.top, left: position?.left}}
+             className={styles.listContainer}
+             ref={ref}>
+            <div className={styles.list} onClick={() => setIsDropdownOpen(false)}>
+                {children}
             </div>
         </div>
     ), modalRootNode);

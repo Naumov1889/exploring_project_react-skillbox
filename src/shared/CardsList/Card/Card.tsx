@@ -22,7 +22,7 @@ export function Card({post, author}: ICardProps) {
         <li className={styles.card}>
             <CardTextContent title={post.title} author={author}/>
             <CardPreview img={post.img}/>
-            {/*<CardMenu/>*/}
+            <CardMenu/>
             {/*<CardControls/>*/}
         </li>
     );

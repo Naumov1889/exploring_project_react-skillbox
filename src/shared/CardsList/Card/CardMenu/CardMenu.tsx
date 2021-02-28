@@ -5,7 +5,6 @@ import {CardMenuList} from "./CardMenuList";
 import {Icon, EIcons} from '../../../Icons';
 
 
-
 export function CardMenu() {
     return (
         <div className={styles.cardMenu}>
