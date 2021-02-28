@@ -1,11 +1,13 @@
 .modal {
     position: fixed;
-    top: 100px;
+    top: 50px;
+    bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
     max-width: 800px;
     box-shadow: 0 0 31px 0 rgba(0,0,0,0.75);
     background: #FFFFFF;
+    overflow-y: scroll;
 }
 
 .content {

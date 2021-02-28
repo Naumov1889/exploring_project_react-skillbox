@@ -1,7 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
 import styles from './post.css';
-import {CommentForm} from "../CommentForm";
 import {PostCommentList} from "./PostCommentList";
 
 interface IPost {
@@ -38,7 +37,6 @@ export function Post(props: IPost) {
                     perferendis placeat tenetur unde.
                 </div>
                 <PostCommentList postId={props.postId}/>
-                <CommentForm/>
             </div>
         </div>
     ), modalRootNode);
