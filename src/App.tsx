@@ -9,27 +9,33 @@ import {useToken} from "./shared/hooks/useToken";
 import {tokenContext} from "./shared/context/tokenContext";
 import {UserContextProvider} from "./shared/context/userContext";
 import {PostsContextProvider} from "./shared/context/postsContext";
-import {CommentContextProvider} from "./shared/context/commentContext";
+
+import {createStore} from "redux";
+import {rootReducer} from "./store";
+import {Provider} from 'react-redux';
+import {composeWithDevTools} from "redux-devtools-extension";
+
+const store = createStore(rootReducer, composeWithDevTools());
 
 
 function AppComponent() {
     const [token] = useToken();
 
     return (
-        <tokenContext.Provider value={token}>
-            <UserContextProvider>
-                <PostsContextProvider>
-                    <CommentContextProvider>
+        <Provider store={store}>
+            <tokenContext.Provider value={token}>
+                <UserContextProvider>
+                    <PostsContextProvider>
                         <Layout>
                             <Header/>
                             <Content>
                                 <CardsList/>
                             </Content>
                         </Layout>
-                    </CommentContextProvider>
-                </PostsContextProvider>
-            </UserContextProvider>
-        </tokenContext.Provider>
+                    </PostsContextProvider>
+                </UserContextProvider>
+            </tokenContext.Provider>
+        </Provider>
     );
 }
 
