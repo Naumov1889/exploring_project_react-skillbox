@@ -4,14 +4,18 @@ import {CardAuthor} from "./CardAuthor";
 import {Post} from "../../../Post";
 
 interface ICardTextContentProps {
-    title: string;
+    post: {
+        id: string;
+        title: string;
+        img: string;
+    }
     author: {
         title: string;
         img: string;
     };
 }
 
-export function CardTextContent({title, author}: ICardTextContentProps) {
+export function CardTextContent({post, author}: ICardTextContentProps) {
     const [isModalOpened, setIsModalOpened] = useState(false);
 
     return (
@@ -24,12 +28,12 @@ export function CardTextContent({title, author}: ICardTextContentProps) {
                 <a href="#post-url"
                    className={styles.postLink}
                    onClick={() => setIsModalOpened(!isModalOpened)}>
-                    {title}
+                    {post.title}
                 </a>
             </div>
 
             {isModalOpened && (
-                <Post onClose={() => setIsModalOpened(!isModalOpened)}/>
+                <Post onClose={() => setIsModalOpened(!isModalOpened)} postId={post.id}/>
             )}
         </div>
     );

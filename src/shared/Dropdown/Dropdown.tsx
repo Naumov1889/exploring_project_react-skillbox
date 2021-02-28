@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import styles from './dropdown.css';
 import {DropdownContent} from "./DropdownContent";
 import {getCoords} from "../../utils/dom";
@@ -18,7 +18,6 @@ const NOOP = () => {
 export function Dropdown({button, children, isOpen, onOpen = NOOP, onClose = NOOP}: IDropdownProps) {
     const [isDropdownOpen, setIsDropdownOpen] = React.useState(isOpen);
     const [position, setPosition] = React.useState({top: '100px', left: '100px'});
-    // const ref = useRef<HTMLDivElement>(null);
 
     React.useEffect(() => setIsDropdownOpen(isOpen), [isOpen]);
     React.useEffect(() => isDropdownOpen ? onOpen() : onClose(), [isDropdownOpen]);

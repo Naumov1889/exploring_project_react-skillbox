@@ -2,8 +2,10 @@ import React, {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
 import styles from './post.css';
 import {CommentForm} from "../CommentForm";
+import {PostCommentList} from "./PostCommentList";
 
 interface IPost {
+    postId: string;
     onClose?: () => void;
 }
 
@@ -35,6 +37,7 @@ export function Post(props: IPost) {
                     dignissimos eligendi eum facilis illum, inventore ipsa ipsam itaque modi mollitia necessitatibus
                     perferendis placeat tenetur unde.
                 </div>
+                <PostCommentList postId={props.postId}/>
                 <CommentForm/>
             </div>
         </div>

@@ -1,0 +1,11 @@
+.comment {
+    padding: 5px;
+}
+
+.author {
+    font-weight: 500;
+}
+
+.text {
+    font-style: italic;
+}

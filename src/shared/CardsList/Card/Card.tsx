@@ -20,7 +20,7 @@ interface ICardProps {
 export function Card({post, author}: ICardProps) {
     return (
         <li className={styles.card}>
-            <CardTextContent title={post.title} author={author}/>
+            <CardTextContent post={post} author={author}/>
             <CardPreview img={post.img}/>
             <CardMenu/>
             {/*<CardControls/>*/}
