@@ -1,6 +1,7 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import {tokenContext} from "../context/tokenContext";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store";
 
 interface IPostItem {
     post: {
@@ -16,7 +17,8 @@ interface IPostItem {
 
 export function usePostsData() {
     const [posts, setPosts] = useState<IPostItem[]>([]);
-    const token = useContext(tokenContext);
+    const token = useSelector<RootState, string>(state => state.token);
+
 
     useEffect(() => {
         axios.get('https://oauth.reddit.com/best.json?limit=5&sr_detail=true', {

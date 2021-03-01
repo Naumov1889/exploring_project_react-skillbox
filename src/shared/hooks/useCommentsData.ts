@@ -1,6 +1,7 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import {tokenContext} from "../context/tokenContext";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store";
 
 
 interface IComment {
@@ -12,7 +13,7 @@ interface IComment {
 
 export function useCommentsData(postId: string) {
     const [comments, setComments] = useState<IComment[]>([]);
-    const token = useContext(tokenContext);
+    const token = useSelector<RootState, string>(state => state.token);
 
     useEffect(() => {
         axios.get(`https://oauth.reddit.com/comments/${postId}.json?limit=5`, {
