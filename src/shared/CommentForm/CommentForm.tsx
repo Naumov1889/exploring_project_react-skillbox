@@ -1,25 +1,19 @@
-import React, {ChangeEvent, FormEvent, useContext, useRef, useState} from 'react';
+import React, {ChangeEvent, FormEvent} from 'react';
 import styles from './commentform.css';
-import {useDispatch, useSelector} from "react-redux";
-import {RootState, updateComment} from "../../store";
 
-export function CommentForm() {
-    const value = useSelector<RootState, string>(state => state.commentText);
-    const dispatch = useDispatch();
 
-    function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
-        dispatch(updateComment(event.target.value))
-    }
+type CommentFormProps = {
+    value: string;
+    onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+    onSubmit: (event: FormEvent) => void;
+}
 
-    function handleSubmit(event: FormEvent) {
-        event.preventDefault();
-    }
-
+export function CommentForm({value, onChange, onSubmit}: CommentFormProps) {
     return (
         <form className={styles.form}
-              onSubmit={handleSubmit}>
+              onSubmit={onSubmit}>
             <textarea className={styles.input}
-                      value={value} onChange={handleChange}></textarea>
+                      value={value} onChange={onChange}></textarea>
             <button type="submit" className={styles.button}>Submit</button>
         </form>
     );
