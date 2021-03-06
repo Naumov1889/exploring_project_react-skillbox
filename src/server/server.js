@@ -10,7 +10,7 @@ app.use('/static', express.static('./dist/client'))
 
 app.get('/', (req, res) => {
     res.send(
-        indexTemplate(ReactDOM.renderToString(App())),
+        indexTemplate(ReactDOM.renderToString(App()), ''),
     );
 });
 
@@ -26,7 +26,7 @@ app.get('/auth/', (req, res) => {
         .then(({data}) => {
             console.log(data)
             res.send(
-                indexTemplate(ReactDOM.renderToString(App()), data['access_token']),
+                indexTemplate(ReactDOM.renderToString(App()), data['access_token'] || ''),
             );
         })
         .catch(console.log('error'))

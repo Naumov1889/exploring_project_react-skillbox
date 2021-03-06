@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {hot} from 'react-hot-loader/root';
 import './main.global.css'
 import {Layout} from './shared/Layout';
 import {Header} from "./shared/Header";
 import {Content} from "./shared/Content";
 import {CardsList} from "./shared/CardsList";
-import {UserContextProvider} from "./shared/context/userContext";
 import {PostsContextProvider} from "./shared/context/postsContext";
 
 import {Action, applyMiddleware, createStore} from "redux";
-import {rootReducer, RootState, SET_TOKEN} from "./store";
 import {Provider,} from 'react-redux';
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk, {ThunkAction} from 'redux-thunk';
+import {rootReducer, RootState} from "./store/reducer";
+import {SET_TOKEN} from "./store/actions";
 
 
 export const store = createStore(rootReducer, composeWithDevTools(
@@ -31,16 +31,14 @@ function AppComponent() {
 
     return (
         <Provider store={store}>
-            <UserContextProvider>
-                <PostsContextProvider>
-                    <Layout>
-                        <Header/>
-                        <Content>
-                            <CardsList/>
-                        </Content>
-                    </Layout>
-                </PostsContextProvider>
-            </UserContextProvider>
+            <PostsContextProvider>
+                <Layout>
+                    <Header/>
+                    <Content>
+                        <CardsList/>
+                    </Content>
+                </Layout>
+            </PostsContextProvider>
         </Provider>
     );
 }

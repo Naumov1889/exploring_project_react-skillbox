@@ -1,7 +1,8 @@
 import React, {ChangeEvent, FormEvent} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {RootState, updateComment} from "../../store";
 import {CommentForm} from "../CommentForm";
+import {RootState} from "../../store/reducer";
+import {updateComment} from "../../store/actions";
 
 export function CommentFormContainer() {
     const value = useSelector<RootState, string>(state => state.commentText);

@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useSelector} from "react-redux";
-import {RootState} from "../../store";
+import {RootState} from "../../store/reducer";
 
 interface IPostItem {
     post: {
@@ -17,7 +17,7 @@ interface IPostItem {
 
 export function usePostsData() {
     const [posts, setPosts] = useState<IPostItem[]>([]);
-    const token = useSelector<RootState, string>(state => state.token);
+    const token = useSelector<RootState, any>(state => state.token);
 
 
     useEffect(() => {
