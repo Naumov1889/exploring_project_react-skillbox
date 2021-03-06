@@ -10,14 +10,10 @@ const initialState: RootState = {
     token: '',
 }
 const UPDATE_COMMENT = 'UPDATE_COMMENT';
-const SET_TOKEN = 'SET_TOKEN';
+export const SET_TOKEN = 'SET_TOKEN';
 export const updateComment: ActionCreator<AnyAction> = (text) => ({
     type: UPDATE_COMMENT,
     text: text
-})
-export const setToken: ActionCreator<AnyAction> = (token) => ({
-    type: SET_TOKEN,
-    token: token
 })
 export const rootReducer: Reducer<RootState> = (state = initialState, action) => {
     switch (action.type) {
@@ -27,13 +23,11 @@ export const rootReducer: Reducer<RootState> = (state = initialState, action) =>
                 commentText: action.text
             }
         case SET_TOKEN:
-            console.log('case SET_TOKEN')
             return {
                 ...state,
                 token: action.token
             }
         default:
-            console.log('case default')
             return state;
     }
 }

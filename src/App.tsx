@@ -8,18 +8,26 @@ import {CardsList} from "./shared/CardsList";
 import {UserContextProvider} from "./shared/context/userContext";
 import {PostsContextProvider} from "./shared/context/postsContext";
 
-import {createStore} from "redux";
-import {rootReducer, setToken} from "./store";
+import {Action, applyMiddleware, createStore} from "redux";
+import {rootReducer, RootState, SET_TOKEN} from "./store";
 import {Provider,} from 'react-redux';
 import {composeWithDevTools} from "redux-devtools-extension";
+import thunk, {ThunkAction} from 'redux-thunk';
 
-export const store = createStore(rootReducer, composeWithDevTools());
 
+export const store = createStore(rootReducer, composeWithDevTools(
+    applyMiddleware(thunk)
+))
+
+const saveToken = (): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
+    const token = window.__token__;
+    dispatch({type: SET_TOKEN, token: token})
+}
 
 function AppComponent() {
     useEffect(() => {
-        const token = window.__token__;
-        store.dispatch(setToken(token));
+        // @ts-ignore
+        store.dispatch(saveToken());
     }, [])
 
     return (
