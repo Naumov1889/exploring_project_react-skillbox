@@ -26,8 +26,7 @@ const saveToken = (): ThunkAction<void, RootState, unknown, Action<string>> => (
 
 function AppComponent() {
     useEffect(() => {
-        // @ts-ignore
-        store.dispatch(saveToken());
+        store.dispatch<any>(saveToken());
     }, [])
 
     return (
