@@ -13,3 +13,7 @@
 
     width: 100%;
 }
+
+.input[aria-invalid] {
+    border-color: red;
+}
