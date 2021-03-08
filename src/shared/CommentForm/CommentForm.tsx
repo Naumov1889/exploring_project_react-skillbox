@@ -1,47 +1,55 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React from 'react';
+import { Formik } from 'formik';
 import styles from './commentform.css';
 
 
-type CommentFormProps = {
-    value: string;
-    onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-    onSubmit: (event: FormEvent) => void;
-}
-
 export function CommentForm() {
-    const [value, setValue] = useState('');
-    const [touched, setTouched] = useState(false);
-    const [valueError, setValueError] = useState('');
-
-    function handleSubmit(event: FormEvent) {
-        event.preventDefault();
-        setTouched(true);
-        setValueError(validateValue());
-
-        const isFormValid = !validateValue();
-        if (!isFormValid) return;
-
-        alert('Форма отправлена');
-    }
-
-    function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
-        setValue(event.target.value);
-    }
-
-    function validateValue() {
-        if (value.length <= 3) return 'Введите больше 3-х символов';
-        return '';
-    }
-
     return (
-        <form className={styles.form}
-              onSubmit={handleSubmit}>
-            <textarea className={styles.input}
-                      value={value}
-                      onChange={handleChange}
-                      aria-invalid={valueError ? 'true' : undefined}/>
-            {touched && valueError && (<div>{valueError}</div>)}
-            <button type="submit" className={styles.button}>Submit</button>
-        </form>
+        <Formik
+            initialValues={{ comment: '' }}
+            validate={values => {
+                const errors: { comment?: string } = {};
+                if (!values.comment) {
+                    errors.comment = 'Required';
+                } else if (
+                    values.comment.length <= 3
+                ) {
+                    errors.comment = 'Введите больше 3-х символов';
+                }
+                return errors;
+            }}
+            onSubmit={(values, { setSubmitting }) => {
+                setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
+                    setSubmitting(false);
+                }, 1000);
+            }}
+        >
+            {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                  /* and other goodies */
+              }) => (
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <textarea
+                        name="comment"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.comment}
+                        className={styles.input}
+                        aria-invalid={errors.comment ? 'true' : undefined}
+                    />
+                    {errors.comment && touched.comment && (<div>{errors.comment}</div>)}
+                    <button type="submit" disabled={isSubmitting} className={styles.button}>
+                        Submit
+                    </button>
+                </form>
+            )}
+        </Formik>
     );
 }
