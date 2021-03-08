@@ -18,9 +18,12 @@ interface IPostItem {
 export function usePostsData() {
     const [posts, setPosts] = useState<IPostItem[]>([]);
     const token = useSelector<RootState, any>(state => state.token);
-
+    const [loading, setLoading] = useState(false);
+    const [errorLoading, setErrorLoading] = useState('');
 
     useEffect(() => {
+        setLoading(true)
+        setErrorLoading('')
         axios.get('https://oauth.reddit.com/best.json?limit=5&sr_detail=true', {
             headers: {Authorization: `bearer ${token}`}
         })
@@ -43,10 +46,15 @@ export function usePostsData() {
 
                 // console.log(processedPosts)
 
+                setLoading(false);
                 setPosts(processedPosts)
             })
-            .catch(console.log)
+            .catch((error) => {
+                console.log(error);
+                setLoading(false)
+                setErrorLoading(String(error))
+            })
     }, [token])
 
-    return [posts]
+    return {posts: posts, loading: loading, errorLoading: errorLoading}
 }
