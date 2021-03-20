@@ -28,6 +28,7 @@ export interface IPostItem {
 export interface IPostsData {
     posts: IPostItem[],
     nextAfter: string;
+    numberOfLoads: number;
 }
 
 export const POSTS_REQUEST_SUCCESS = 'POSTS_REQUEST_SUCCESS';
@@ -53,7 +54,7 @@ export const postsRequestError: ActionCreator<PostsRequestErrorAction> = (error:
 export const postsRequestAsync = (): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
     dispatch(postsRequest());
 
-    axios.get('https://oauth.reddit.com/best.json', {
+    axios.get('https://oauth.reddit.com/top.json', {
         headers: {Authorization: `bearer ${getState().token}`},
         params: {
             limit: 5,
@@ -79,11 +80,10 @@ export const postsRequestAsync = (): ThunkAction<void, RootState, unknown, Actio
                 }
             })
 
-            console.log(after)
-
             dispatch(postsRequestSuccess({
                 posts: getState().posts.data.posts.concat(...processedPosts),
-                nextAfter: after
+                nextAfter: after,
+                numberOfLoads: ++getState().posts.data.numberOfLoads,
             }));
         })
         .catch((error) => {

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './cardslist.css';
 import {Card} from "./Card";
 import {useDispatch, useSelector} from "react-redux";
@@ -8,6 +8,7 @@ import {IPostItem, postsRequestAsync} from "../../store/posts/actions";
 
 export function CardsList() {
     const posts = useSelector<RootState, IPostItem[]>(state => state.posts.data.posts)
+    const numberOfLoads = useSelector<RootState, number>(state => state.posts.data.numberOfLoads)
     const loading = useSelector<RootState, boolean>(state => state.posts.loading)
     const errorLoading = useSelector<RootState, string>(state => state.posts.error)
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export function CardsList() {
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
+            if (entries[0].isIntersecting && (numberOfLoads % 3 !== 0 || numberOfLoads === 0)) {
                 dispatch(postsRequestAsync())
             }
         }, {
@@ -36,7 +37,7 @@ export function CardsList() {
                 observer.unobserve(bottomOfList.current);
             }
         }
-    }, [])
+    }, [posts])
 
     return (
         <ul className={styles.cardsList}>
@@ -57,6 +58,10 @@ export function CardsList() {
             {/*case 4*/}
             {errorLoading && (<li>{errorLoading}</li>)}
 
+            {/*case 5*/}
+            {numberOfLoads % 3 === 0 && cards.length !== 0 && !loading && !errorLoading && (
+                <button onClick={() => dispatch(postsRequestAsync())}>Загрузить ещё</button>
+            )}
         </ul>
     );
 }

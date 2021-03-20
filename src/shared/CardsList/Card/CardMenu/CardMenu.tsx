@@ -8,8 +8,8 @@ import {Icon, EIcons} from '../../../Icons';
 export function CardMenu() {
     return (
         <div className={styles.cardMenu}>
-            <Dropdown onOpen={() => console.log('opened')}
-                      onClose={() => console.log('closed')}
+            <Dropdown onOpen={() => {}}
+                      onClose={() => {}}
                       button={
                           <button className={styles.menuBtn}>
                               <Icon name={EIcons.menu} size={21}/>
