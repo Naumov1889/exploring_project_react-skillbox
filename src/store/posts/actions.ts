@@ -27,7 +27,7 @@ export interface IPostItem {
 
 export interface IPostsData {
     posts: IPostItem[],
-    after: string;
+    nextAfter: string;
 }
 
 export const POSTS_REQUEST_SUCCESS = 'POSTS_REQUEST_SUCCESS';
@@ -51,23 +51,15 @@ export const postsRequestError: ActionCreator<PostsRequestErrorAction> = (error:
 })
 
 export const postsRequestAsync = (): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch, getState) => {
-    // axios.get('https://oauth.reddit.com/api/v1/me', {
-    //     headers: {Authorization: `bearer ${getState().token}`}
-    // })
-    //     .then((resp) => {
-    //         const userData = resp.data;
-    //         dispatch(postsRequestSuccess({name: userData.name, iconImg: userData.icon_img}));
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //         dispatch(postsRequestError(String(error)));
-    //     })
-
     dispatch(postsRequest());
 
-
-    axios.get('https://oauth.reddit.com/best.json?limit=5&sr_detail=true', {
-        headers: {Authorization: `bearer ${getState().token}`}
+    axios.get('https://oauth.reddit.com/best.json', {
+        headers: {Authorization: `bearer ${getState().token}`},
+        params: {
+            limit: 5,
+            after: getState().posts.data.nextAfter,
+            sr_detail: true
+        }
     })
         .then((resp) => {
             const posts = resp.data.data.children;
@@ -87,17 +79,15 @@ export const postsRequestAsync = (): ThunkAction<void, RootState, unknown, Actio
                 }
             })
 
-            dispatch(postsRequestSuccess({posts: processedPosts, after: after}));
+            console.log(after)
 
-
-            // setAfter(after);
-            // setLoading(false);
-            // setPosts(processedPosts)
+            dispatch(postsRequestSuccess({
+                posts: getState().posts.data.posts.concat(...processedPosts),
+                nextAfter: after
+            }));
         })
         .catch((error) => {
             console.log(error);
             dispatch(postsRequestError(String(error)));
-            // setLoading(false)
-            // setErrorLoading(String(error))
         })
 }

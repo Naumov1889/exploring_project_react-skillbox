@@ -26,7 +26,7 @@ const initialState: RootState = {
         error: '',
         data: {
             posts: [],
-            after: ''
+            nextAfter: ''
         }
     },
 }
