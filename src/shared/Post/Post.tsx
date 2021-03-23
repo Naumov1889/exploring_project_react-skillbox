@@ -1,21 +1,23 @@
 import React, {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
+import {useHistory, useParams} from 'react-router-dom'
 import styles from './post.css';
 import {PostCommentList} from "./PostCommentList";
 import {CommentFormContainer} from "../CommentFormContainer";
 
 interface IPost {
     postId: string;
-    onClose?: () => void;
 }
 
-export function Post(props: IPost) {
+export function Post() {
     const ref = useRef<HTMLDivElement>(null);
+    const history = useHistory();
+    let {postId} = useParams<IPost>();
 
     useEffect(() => {
         function handleClick(event: MouseEvent) {
             if (event.target instanceof Node && !ref.current?.contains(event.target)) {
-                props.onClose?.();
+                history.push('/posts/')
             }
         }
 
@@ -37,7 +39,7 @@ export function Post(props: IPost) {
                     dignissimos eligendi eum facilis illum, inventore ipsa ipsam itaque modi mollitia necessitatibus
                     perferendis placeat tenetur unde.
                 </div>
-                <PostCommentList postId={props.postId}/>
+                <PostCommentList postId={postId}/>
                 <CommentFormContainer/>
             </div>
         </div>

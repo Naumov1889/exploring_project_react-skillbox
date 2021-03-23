@@ -30,8 +30,6 @@ export function useCommentsData(postId: string) {
                     }
                 })
 
-                console.log(processedComments)
-
                 setComments(processedComments)
 
             })

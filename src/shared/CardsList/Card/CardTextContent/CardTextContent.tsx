@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './cardtextcontent.css';
 import {CardAuthor} from "./CardAuthor";
-import {Post} from "../../../Post";
+import {Link} from 'react-router-dom'
 
 interface ICardTextContentProps {
     post: {
@@ -16,25 +16,17 @@ interface ICardTextContentProps {
 }
 
 export function CardTextContent({post, author}: ICardTextContentProps) {
-    const [isModalOpened, setIsModalOpened] = useState(false);
-
     return (
         <div className={styles.textContent}>
             <div className={styles.metaData}>
                 <CardAuthor title={author.title} img={author.img}/>
-                {/*<span className={styles.createdAt}>4 часа назад</span>*/}
             </div>
             <div className={styles.title}>
-                <a href="#post-url"
-                   className={styles.postLink}
-                   onClick={() => setIsModalOpened(!isModalOpened)}>
+                <Link to={`/posts/${post.id}`}
+                      className={styles.postLink}>
                     {post.title}
-                </a>
+                </Link>
             </div>
-
-            {isModalOpened && (
-                <Post onClose={() => setIsModalOpened(!isModalOpened)} postId={post.id}/>
-            )}
         </div>
     );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './postcommentlist.css';
-import {Card} from "../../CardsList/Card";
 import {useCommentsData} from "../../hooks/useCommentsData";
 import {PostComment} from "./PostComment";
 
