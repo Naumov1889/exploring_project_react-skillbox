@@ -6,9 +6,9 @@
   "scripts": {
     "build:dev": "env NODE_ENV=development webpack --config webpack.config.js",
     "build": "env NODE_ENV=production webpack --config webpack.config.js",
-    "dev": "env NODE_ENV=development CLIENT_ID=-93x-BPqZvnhkg node ./bin/dev.js",
+    "dev": "env NODE_ENV=development CLIENT_ID=-93x-BPqZvnhkg SECRET=Z5cHdGcmBmLO4Hs57Ob10mIyGE_F4w URI=http://localhost:3000 node ./bin/dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/server/server.js"
+    "start": "env CLIENT_ID=BYakeL45KnEyzg SECRET=1og9Fn8ToyhEwkx9LZEs01-K1M-ufg URI=https://skillbox-react.herokuapp.com node ./dist/server/server.js"
   },
   "author": "",
   "license": "ISC",
